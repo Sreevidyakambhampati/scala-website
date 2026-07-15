@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.3.2",
     "framer-motion": "^12.42.2",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
@@ -17,7 +18,8 @@
     "react-router-dom": "^7.18.1",
     "react-scroll": "^1.9.3",
     "react-spinners": "^0.17.0",
-    "swiper": "^14.0.5"
+    "swiper": "^14.0.5",
+    "tailwindcss": "^4.3.2"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
