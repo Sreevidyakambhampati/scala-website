@@ -17,7 +17,17 @@ function Innovation() {
             X
           </h1>
 
-          <div className="relative z-10 grid lg:grid-cols-2 gap-16 items-center">
+          <div
+  className="
+    relative z-10
+    grid
+    min-[778px]:grid-cols-2
+    gap-8
+    lg:gap-16
+    items-center
+  "
+>
+
 
             {/* Left */}
 
@@ -52,37 +62,68 @@ function Innovation() {
 
             </div>
 
-            {/* Right */}
+           {/* Right */}
+<div
+  className="
+    hidden
+    min-[635px]:block
+    min-[778px]:flex
+    justify-center
+    items-center
+  "
+>
+  <motion.div
+    animate={{ y: [0, -20, 0] }}
+    transition={{
+      duration: 3,
+      repeat: Infinity,
+      ease: "easeInOut",
+    }}
+    className="
+      relative
 
-            <div className="flex justify-center">
+      min-[635px]:absolute
+      min-[635px]:top-28
+      min-[635px]:right-8
 
-              <motion.div
-                animate={{
-                  y: [0, -20, 0],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                className="relative"
-              >
-                {/* Rays */}
+      min-[778px]:static
+    "
+  >
+    <span
+      className="
+        absolute
+        -top-4
+        left-6
+        w-[2px]
+        h-8
+        bg-blue-500
+        rotate-[-25deg]
+      "
+    />
 
-                <span className="absolute -top-6 left-8 w-[2px] h-12 bg-blue-500 rotate-[-25deg]" />
+    <span
+      className="
+        absolute
+        -top-4
+        right-6
+        w-[2px]
+        h-8
+        bg-blue-500
+        rotate-[25deg]
+      "
+    />
 
-                <span className="absolute -top-6 right-8 w-[2px] h-12 bg-blue-500 rotate-[25deg]" />
-
-                {/* Bulb */}
-
-                <FaLightbulb
-                  className="text-[320px] text-blue-600 drop-shadow-xl"
-                />
-
-              </motion.div>
-
-            </div>
-
+    <FaLightbulb
+      className="
+        text-[120px]
+        min-[778px]:text-[240px]
+        min-[1200px]:text-[320px]
+        text-blue-600
+        drop-shadow-xl
+      "
+    />
+  </motion.div>
+</div>
           </div>
         </div>
 

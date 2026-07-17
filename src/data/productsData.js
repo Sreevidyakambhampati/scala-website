@@ -22,13 +22,4 @@ export const products = [
       "Empowering businesses via technology.",
     dark: true,
   },
-  {
-    id: 3,
-    name: "SCALERP",
-    category: "Enterprise Suite",
-    title: "Digital Transformation",
-    description:
-      "Simplifying workflows for organizations.",
-    dark: false,
-  },
 ];
