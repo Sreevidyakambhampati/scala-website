@@ -93,7 +93,7 @@ function Navbar() {
         px-8
         rounded-full
         border border-white/20
-        shadow-xl
+        shadow-md
         transition-all duration-500
 
         ${
@@ -380,7 +380,7 @@ function Navbar() {
           mt-5
           bg-white
           rounded-3xl
-          shadow-xl
+          shadow-md
           p-6
         "
         >

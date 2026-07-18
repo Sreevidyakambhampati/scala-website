@@ -41,6 +41,7 @@ function Hero() {
       top: "20%",
       left: "20%",
     },
+    //8215, 4852
   ];
 
   return (

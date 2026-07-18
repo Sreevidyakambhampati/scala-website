@@ -38,7 +38,7 @@ function Products() {
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
 
-            // KEEP THIS FOR NAVBAR
+            //FOR NAVBAR
             window.productsSwiper = swiper;
           }}
         >
@@ -127,40 +127,26 @@ function Products() {
                     {item.title}
                   </h3>
 
-                  {/* Light Cards */}
+           <p className="text-white/80 text-lg mb-8">
+  {item.description}
+</p>
 
-                  {!item.dark && (
-                    <>
-                      <p className="text-white/80 text-lg mb-8">
-                        {item.description}
-                      </p>
-
-                      <div className="flex flex-wrap gap-3 mt-auto">
-                        {item.tags?.map((tag) => (
-                          <span
-                            key={tag}
-                            className="px-5 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur text-sm"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </>
-                  )}
-
-                  {/* Dark Cards */}
-
-                  {item.dark && (
-                    <>
-                      <p className="text-white/75 text-lg mb-10">
-                        {item.description}
-                      </p>
-
-                      <button className="w-fit border-b border-cyan-300 text-cyan-200 pb-1 hover:text-white transition">
-                        View Case Study
-                      </button>
-                    </>
-                  )}
+{item.tags ? (
+  <div className="flex flex-wrap gap-3 mt-auto">
+    {item.tags.map((tag) => (
+      <span
+        key={tag}
+        className="px-5 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur text-sm"
+      >
+        {tag}
+      </span>
+    ))}
+  </div>
+) : (
+  <button className="w-fit border-b border-cyan-300 text-cyan-200 pb-1 hover:text-white transition">
+    {item.buttonText}
+  </button>
+)}
                 </div>
               </div>
             </SwiperSlide>
