@@ -9,6 +9,14 @@ import { motion } from "framer-motion";
 import { Link } from "react-scroll";
 
 function Navbar() {
+  // Google Form URL
+const formLink =
+  "https://docs.google.com/forms/d/e/1FAIpQLSeBCxOXks614CK11ksgmr0Mi-Cg8eYYLnZjwdJ7cT0ZvNm60g/viewform";
+
+// Opens form in new tab
+const handleBookDemo = () => {
+  window.open(formLink, "_blank");
+};
 
   // controls mobile menu open/close
   const [isMenuOpen, setIsMenuOpen] =
@@ -106,7 +114,7 @@ function Navbar() {
         {/* Logo */}
 
         <img
-          src="/logo.png"
+          src="src\assets\scalaLogo.png"
           alt="Scala"
           className={`object-contain transition-all duration-500 ${
             scrolled
@@ -308,42 +316,19 @@ function Navbar() {
       </ul>
 
       {/* CTA */}
-      <div className="hidden lg:flex">
+  <div className="hidden lg:flex">
+  <button
+    onClick={handleBookDemo}
+    className="relative overflow-hidden bg-blue-600 text-white px-7 py-3 rounded-full group"
+  >
+    <span className="relative z-10">
+      Book Demo
+    </span>
 
-          <button
-            className="
-            relative
-            overflow-hidden
-            bg-blue-600
-            text-white
-            px-7
-            py-3
-            rounded-full
-            group
-          "
-          >
-            <span className="relative z-10">
-              Book Demo
-            </span>
-
-            {/* Shine effect */}
-
-            <span
-              className="
-              absolute
-              top-0
-              -left-32
-              w-24
-              h-full
-              bg-white/30
-              rotate-12
-              group-hover:left-[150%]
-              transition-all
-              duration-1000
-            "
-            />
-          </button>
-        </div>
+    {/* Shine animation */}
+    <span className="absolute top-0 -left-32 w-24 h-full bg-white/30 rotate-12 group-hover:left-[150%] transition-all duration-1000" />
+  </button>
+</div>
 
         {/* Mobile Menu Button */}
 
@@ -416,9 +401,12 @@ function Navbar() {
               )
             )}
 
-            <button className="bg-blue-600 text-white py-3 rounded-2xl">
-              Book Demo
-            </button>
+            <button
+  onClick={handleBookDemo}
+  className="bg-blue-600 text-white py-3 rounded-2xl"
+>
+  Book Demo
+</button>
 
           </ul>
         </motion.div>
