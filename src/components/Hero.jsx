@@ -8,7 +8,7 @@ import {
   FaCode,
 } from "react-icons/fa";
 
-import heroBg from "../assets/backgroundhero.png";
+//import heroBg from "../assets/backgroundhero.png";
 import scalaLogo from "../assets/scalaLogo_background.png";
 
 function Hero() {
@@ -77,10 +77,77 @@ function Hero() {
 
   return (
     <section
-      id="hero"
-      className="relative overflow-hidden w-full min-h-screen pt-24 flex items-center bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: `url(${heroBg})` }}
-    >
+  id="hero"
+  className="relative overflow-hidden w-full min-h-screen pt-24 flex items-center bg-white"
+>
+  {/* Main background */}
+<div className="absolute inset-0 overflow-hidden">
+
+  {/* Right glow */}
+  <div className="absolute right-[-250px] top-[-120px] w-[900px] h-[900px] rounded-full bg-blue-500/20 blur-[180px]" />
+
+  {/* Center glow */}
+  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-blue-400/10 blur-[140px]" />
+
+</div>
+<div className="absolute -top-52 -left-52 pointer-events-none opacity-25">
+  {[...Array(9)].map((_, i) => (
+    <div
+      key={i}
+      className="absolute border border-blue-400 rounded-full"
+      style={{
+        width: `${380 + i * 45}px`,
+        height: `${380 + i * 45}px`,
+        left: `${-i * 22}px`,
+        top: `${-i * 22}px`,
+      }}
+    />
+  ))}
+</div>
+<svg
+  className="absolute bottom-0 left-0 w-full"
+  viewBox="0 0 1440 220"
+  preserveAspectRatio="none"
+>
+  <path
+    d="
+      M0,120
+      C250,220
+      450,20
+      720,120
+      C980,220
+      1180,60
+      1440,120
+      L1440,220
+      L0,220
+      Z
+    "
+    fill="#2563EB"
+    opacity="0.08"
+  />
+</svg>
+<svg
+  className="absolute bottom-0 left-0 w-full"
+  viewBox="0 0 1440 220"
+  preserveAspectRatio="none"
+>
+  <path
+    d="
+      M0,160
+      C240,80
+      520,220
+      760,150
+      C980,80
+      1180,180
+      1440,110
+      L1440,220
+      L0,220
+      Z
+    "
+    fill="#2563EB"
+    opacity="0.05"
+  />
+</svg>
       <div className="max-w-7xl mx-auto px-6 lg:px-16 w-full grid lg:grid-cols-2 gap-10 items-center">
         {/* LEFT */}
         <div>

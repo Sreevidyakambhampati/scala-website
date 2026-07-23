@@ -1,54 +1,170 @@
+import { useState } from "react";
+
 function CTA() {
-  const formLink =
-    "https://docs.google.com/forms/d/e/1FAIpQLSeBCxOXks614CK11ksgmr0Mi-Cg8eYYLnZjwdJ7cT0ZvNm60g/viewform";
+  const scriptURL =
+    "https://script.google.com/macros/s/AKfycbwyH1FJ2Lbn57LPGFJJBcW6qlrAdG1IwguJkaqE281DeEccriMH-1K1yQxG4qxGq5X4Zg/exec";
 
-//change mail (ask hr)
-  const email = "inquire.scalatechnologies@gmail.com";
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+  });
 
-  const handleContact = () => {
-    window.location.href = `mailto:${email}`;
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
   };
 
-  const handleDemo = () => {
-    window.open(formLink, "_blank");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setLoading(true);
+
+    const data = new FormData();
+
+    data.append("name", formData.name);
+    data.append("email", formData.email);
+    data.append("phone", formData.phone);
+    data.append("address", formData.address);
+
+    try {
+      await fetch(scriptURL, {
+        method: "POST",
+        body: data,
+        mode: "no-cors",
+      });
+
+      alert("Thank you! We'll contact you soon.");
+
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        address: "",
+      });
+    } catch (error) {
+      alert("Submission Failed");
+    }
+
+    setLoading(false);
   };
 
   return (
-    <section className="py-28 bg-white" id = "cta">
-      <div className="max-w-5xl mx-auto px-6 text-center">
+    <section
+      id="cta"
+      className="py-24 bg-gradient-to-br from-white via-blue-50 to-white"
+    >
+      <div className="max-w-7xl mx-auto px-6">
 
-        <h2 className="text-5xl md:text-6xl font-bold text-[#0B1B34] leading-tight">
-          Ready to Build the{" "}
-          <span className="bg-gradient-to-r from-[#2563EB] via-[#4F46E5] to-[#06B6D4] bg-clip-text text-transparent">
-            Future
-          </span>{" "}
-          with Us?
-        </h2>
+        <div className="grid lg:grid-cols-2 gap-20 items-center">
 
-        <p className="mt-8 text-lg text-gray-600 leading-8 max-w-2xl mx-auto">
-          Whether you're looking for a powerful SaaS platform or a custom
-          digital solution, we're here to help you navigate the complexities
-          of modern engineering.
-        </p>
+          {/* LEFT SIDE */}
 
-        <div className="mt-14 flex flex-col sm:flex-row justify-center gap-6">
+          <div>
 
-          {/* Contact Button */}
-          <button
-            onClick={handleContact}
-            className="px-12 py-5 rounded-2xl bg-[#2563EB] text-white text-xl font-semibold shadow-lg hover:shadow-2xl hover:-translate-y-1 hover:bg-[#1D4ED8] transition-all duration-300"
-          >
-            Contact Us Today
-          </button>
+            <h2 className="text-5xl lg:text-6xl font-bold leading-tight text-[#0B1B34]">
+              Ready to Build the{" "}
+              <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 bg-clip-text text-transparent">
+                Future
+              </span>{" "}
+              with Us?
+            </h2>
 
-          {/* Gradient Border Button */}
-          <div className="rounded-2xl p-[2px] bg-gradient-to-r from-[#2563EB] via-[#7C3AED] to-[#06B6D4] hover:shadow-lg transition-all duration-300">
-            <button
-              onClick={handleDemo}
-              className="w-full h-full px-12 py-5 rounded-[14px] bg-white text-[#0B1B34] text-xl font-semibold hover:bg-gray-50 transition-all duration-300"
+            <p className="mt-8 text-lg leading-8 text-gray-600">
+              Whether you're looking for a powerful SaaS platform,
+              enterprise software, or a custom digital solution,
+              Scala Technologies is ready to help transform your ideas
+              into scalable products.
+            </p>
+
+            <div className="mt-10 rounded-3xl border border-blue-100 bg-white/70 backdrop-blur-lg shadow-lg p-8">
+
+              <div className="inline-flex px-4 py-2 rounded-full bg-blue-100 text-blue-700 font-semibold">
+                Let's discuss your project
+              </div>
+
+              <h3 className="mt-6 text-2xl font-bold text-[#0B1B34]">
+                We'd love to hear from you.
+              </h3>
+
+              <p className="mt-4 text-gray-600 leading-8">
+                Share your requirements with us and our team will reach
+                out within one business day to discuss the best solution
+                for your organization.
+              </p>
+
+            </div>
+
+          </div>
+
+          {/* RIGHT SIDE */}
+
+          <div className="rounded-[30px] bg-white/80 backdrop-blur-xl border border-white shadow-2xl p-10">
+
+            <h3 className="text-3xl font-bold text-[#0B1B34] mb-8">
+              Let's Connect
+            </h3>
+
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-6"
             >
-              Schedule a Demo
-            </button>
+
+              <input
+                type="text"
+                name="name"
+                placeholder="Full Name"
+                required
+                value={formData.name}
+                onChange={handleChange}
+                className="w-full rounded-xl bg-blue-50 border border-gray-200 p-4 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
+              />
+
+              <input
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                required
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full rounded-xl bg-blue-50 border border-gray-200 p-4 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
+              />
+
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Contact Number"
+                required
+                value={formData.phone}
+                onChange={handleChange}
+                className="w-full rounded-xl bg-blue-50 border border-gray-200 p-4 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
+              />
+
+              <textarea
+                rows="4"
+                name="address"
+                placeholder="Address"
+                required
+                value={formData.address}
+                onChange={handleChange}
+                className="w-full rounded-xl bg-blue-50 border border-gray-200 p-4 outline-none resize-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
+              />
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 text-white font-semibold text-lg shadow-lg hover:scale-[1.02] hover:shadow-xl transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                {loading ? "Submitting..." : "Submit"}
+              </button>
+
+            </form>
+
           </div>
 
         </div>
