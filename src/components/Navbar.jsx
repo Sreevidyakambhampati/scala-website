@@ -7,15 +7,16 @@ import {
 
 import { motion } from "framer-motion";
 import { Link } from "react-scroll";
+import scalaLogo from "../assets/scalaLogo_background.png";
 
 function Navbar() {
   // Google Form URL
-const formLink =
-  "https://docs.google.com/forms/d/e/1FAIpQLSeBCxOXks614CK11ksgmr0Mi-Cg8eYYLnZjwdJ7cT0ZvNm60g/viewform";
-
-// Opens form in new tab
-const handleBookDemo = () => {
-  window.open(formLink, "_blank");
+const handleContactUs = () => {
+    document
+        .getElementById("cta")
+        ?.scrollIntoView({
+            behavior: "smooth",
+        });
 };
 
   // controls mobile menu open/close
@@ -48,11 +49,11 @@ const handleBookDemo = () => {
       title: "Products",
       to: "products",
     },
-    {
-      id: 5,
-      title: "Contact",
-      to: "contact",
-    },
+    // {
+    //   id: 5,
+    //   title: "Contact",
+    //   to: "contact",
+    // },
   ];
 
   // runs when component loads
@@ -97,61 +98,77 @@ const handleBookDemo = () => {
       {/* Main navbar container */}
       <div
         className={`
+          relative
         flex items-center justify-between
-        px-8
-        rounded-full
+        px-10 lg:px-12
+        rounded-xl
         border border-white/20
         shadow-md
         transition-all duration-500
 
         ${
           scrolled
-            ? "h-16 bg-white/85 backdrop-blur-2xl"
-            : "h-20 bg-white/70 backdrop-blur-xl"
+  ? "h-16 bg-white/90 backdrop-blur-2xl"
+  : "h-16 bg-white/80 backdrop-blur-xl"
         }
       `}
       >
-        {/* Logo */}
+        {/* Logo + Mobile Title */}
 
-        <img
-          src="src\assets\scalaLogo.png"
-          alt="Scala"
-          className={`object-contain transition-all duration-500 ${
-            scrolled
-              ? "h-10"
-              : "h-14"
-          }`}
-        />
+<div className="flex items-center">
 
-        {/* Desktop Menu */}
-        {/* hidden below lg scree, viewed for desktop n */}
+  {/* Logo */}
+  <img
+    src={scalaLogo}
+    alt="Scala"
+    className={`object-contain transition-all duration-500 ${
+      scrolled ? "h-10" : "h-14"
+    }`}
+  />
 
-        <ul className="hidden lg:flex items-center gap-3 relative">
+</div>
 
-          {navLinks.map((link) => (
+{/* Mobile Center Title */}
+<h1
+  className="
+    lg:hidden
+    absolute
+    left-1/2
+    -translate-x-1/2
+    text-2xl
+    font-bold
+    bg-gradient-to-r
+    from-blue-600
+    via-cyan-500
+    to-indigo-600
+    bg-clip-text
+    text-transparent
+    pointer-events-none
+    select-none
+  "
+>
+  SCALA
+</h1>
 
-            // relative because pill uses absolute positioning
-            <li
-              key={link.id}
-              className="relative"
-              onMouseEnter={() => {
+{/* Desktop Menu */}
+<ul className="hidden lg:flex items-center gap-3 relative">
 
-                setActive(link.title);
+  {navLinks.map((link) => (
 
-                if (
-                  link.title ===
-                  "Products"
-                ) {
-                  setShowProducts(
-                    true
-                  );
-                } else {
-                  setShowProducts(
-                    false
-                  );
-                }
-              }}
-            >
+    <li
+      key={link.id}
+      className="relative"
+      onMouseEnter={() => {
+
+        setActive(link.title);
+
+        if (link.title === "Products") {
+          setShowProducts(true);
+        } else {
+          setShowProducts(false);
+        }
+      }}
+    >
 
               {/* Animated blue pill */}
 
@@ -318,11 +335,11 @@ const handleBookDemo = () => {
       {/* CTA */}
   <div className="hidden lg:flex">
   <button
-    onClick={handleBookDemo}
+    onClick={handleContactUs}
     className="relative overflow-hidden bg-blue-600 text-white px-7 py-3 rounded-full group"
   >
     <span className="relative z-10">
-      Book Demo
+      Contact Us
     </span>
 
     {/* Shine animation */}
@@ -402,10 +419,13 @@ const handleBookDemo = () => {
             )}
 
             <button
-  onClick={handleBookDemo}
+  onClick={() => {
+    handleContactUs();
+    setIsMenuOpen(false);
+}}
   className="bg-blue-600 text-white py-3 rounded-2xl"
 >
-  Book Demo
+  Contact Us
 </button>
 
           </ul>

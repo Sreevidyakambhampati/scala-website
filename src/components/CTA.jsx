@@ -14,7 +14,7 @@ function CTA() {
   };
 
   return (
-    <section className="py-28 bg-white">
+    <section className="py-28 bg-white" id = "cta">
       <div className="max-w-5xl mx-auto px-6 text-center">
 
         <h2 className="text-5xl md:text-6xl font-bold text-[#0B1B34] leading-tight">
