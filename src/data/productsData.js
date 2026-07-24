@@ -15,7 +15,7 @@ export const products = [
   {
     id: 2,
     name: "STRIKE",
-    category: "MEMBERSHIP MANAGEMENT PLATFORM",
+    category: "BUSINESS OPERATIONS",
     title: "Powering Productivity",
     description:
       "Empowering businesses via Technology.",
