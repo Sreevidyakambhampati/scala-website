@@ -18,7 +18,7 @@ export const products = [
     category: "MEMBERSHIP MANAGEMENT PLATFORM",
     title: "Powering Productivity",
     description:
-      "Helping organizations build and manage thriving member ecosystems.",
+      "Empowering businesses via Technology.",
     tags: [
       "Member Portal",
       "Digital Membership",
