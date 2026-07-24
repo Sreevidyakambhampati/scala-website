@@ -5,11 +5,14 @@ import {
   FiChevronDown,
 } from "react-icons/fi";
 
+
 import { motion } from "framer-motion";
 import { Link } from "react-scroll";
-import scalaLogo from "../assets/scalaLogo_background.png";
+import scalaLogo from "../assets/SCALA_NOBG.png";
 
 function Navbar() {
+  const [showNavbar, setShowNavbar] = useState(true);
+  const [isNavigating, setIsNavigating] = useState(false);
   // Google Form URL
 const handleContactUs = () => {
     document
@@ -57,39 +60,52 @@ const handleContactUs = () => {
   ];
 
   // runs when component loads
-  useEffect(() => {
+ useEffect(() => {
+  let lastScrollY = window.scrollY;
 
-    // window.scrollY gives vertical scroll position
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+  const handleScroll = () => {
+  const currentScrollY = window.scrollY;
 
-    window.addEventListener(
-      "scroll",
-      handleScroll
-    );
+  if (isNavigating) {
+    setShowNavbar(true);
+    return;
+  }
 
-    return () =>
-      window.removeEventListener(
-        "scroll",
-        handleScroll
-      );
-  }, []);
+  // Background effect
+  setScrolled(currentScrollY > 50);
+
+  if (currentScrollY < 50) {
+    setShowNavbar(true);
+  } else if (currentScrollY > lastScrollY) {
+    setShowNavbar(false);
+  } else {
+    setShowNavbar(true);
+  }
+
+  lastScrollY = currentScrollY;
+};
+
+  window.addEventListener("scroll", handleScroll);
+
+  return () =>
+    window.removeEventListener("scroll", handleScroll);
+}, []);
 
   return (
     <motion.nav
       // navbar enters from top which initially invisible with 0.8 duration
-      initial={{
-        y: -100,
-        opacity: 0,
-      }}
-      animate={{
-        y: 0,
-        opacity: 1,
-      }}
-      transition={{
-        duration: 0.8,
-      }}
+    initial={{
+  y: -100,
+  opacity: 0,
+}}
+animate={{
+  y: showNavbar ? 0 : -120,
+  opacity: showNavbar ? 1 : 0,
+}}
+transition={{
+  duration: 0.35,
+  ease: "easeInOut",
+}}
 
       // fixed = stays while scrolling
       // left-1/2 + translate-x makes it centered
@@ -189,11 +205,19 @@ const handleContactUs = () => {
               {/* Smooth scroll links */}
 
               <Link
-                to={link.to}
-                smooth={true}
-                duration={450}
-                offset={-120}
-              >
+  to={link.to}
+  smooth={true}
+  duration={450}
+  offset={-120}
+  onClick={() => {
+    setIsNavigating(true);
+
+    setTimeout(() => {
+      setIsNavigating(false);
+    }, 600);
+  }}
+>
+  
                 <button
                   className={`
                   relative
