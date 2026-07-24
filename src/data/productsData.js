@@ -10,13 +10,20 @@ export const products = [
       "Real-Time Availability",
       "Online Booking",
     ],
+    buttonText: "View Case Study",
   },
   {
     id: 2,
     name: "STRIKE",
-    category: "Business Operations",
+    category: "MEMBERSHIP MANAGEMENT PLATFORM",
     title: "Powering Productivity",
-    description: "Empowering businesses via technology.",
+    description:
+      "Helping organizations build and manage thriving member ecosystems.",
+    tags: [
+      "Member Portal",
+      "Digital Membership",
+      "Secure Payments",
+    ],
     buttonText: "View Case Study",
   },
 ];

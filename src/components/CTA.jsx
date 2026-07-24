@@ -1,8 +1,15 @@
 import { useState } from "react";
+import {
+  FiUser,
+  FiMail,
+  FiPhone,
+  FiMapPin
+} from "react-icons/fi";
+import toast from "react-hot-toast";
 
 function CTA() {
   const scriptURL =
-    "https://script.google.com/macros/s/AKfycbwyH1FJ2Lbn57LPGFJJBcW6qlrAdG1IwguJkaqE281DeEccriMH-1K1yQxG4qxGq5X4Zg/exec";
+    "https://script.google.com/macros/s/AKfycbxwz51qjRiA9gSqEoQQqpG6CIrFuhstYXmR5-_iSpe8e8pWo-_4Lg2iL_4nvZnggu982Q/exec";
 
   const [formData, setFormData] = useState({
     name: "",
@@ -20,26 +27,28 @@ function CTA() {
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setLoading(true);
 
-    setLoading(true);
+  const data = new FormData();
+  data.append("name", formData.name);
+  data.append("email", formData.email);
+  data.append("phone", formData.phone);
+  data.append("address", formData.address);
 
-    const data = new FormData();
+  try {
+    const response = await fetch(scriptURL, {
+      method: "POST",
+      body: data,
+    });
 
-    data.append("name", formData.name);
-    data.append("email", formData.email);
-    data.append("phone", formData.phone);
-    data.append("address", formData.address);
+    const result = await response.json();
 
-    try {
-      await fetch(scriptURL, {
-        method: "POST",
-        body: data,
-        mode: "no-cors",
-      });
-
-      alert("Thank you! We'll contact you soon.");
+    if (result.status === "success") {
+      toast.success(result.message, {
+  icon: "✅",
+});
 
       setFormData({
         name: "",
@@ -47,12 +56,20 @@ function CTA() {
         phone: "",
         address: "",
       });
-    } catch (error) {
-      alert("Submission Failed");
+    } else {
+      toast.error(result.message, {
+  icon: "⚠️",
+});
     }
+  } catch (err) {
+    console.error(err);
+    toast.error("Submission Failed", {
+  icon: "⚠️",
+});
+  }
 
-    setLoading(false);
-  };
+  setLoading(false);
+};
 
   return (
     <section
@@ -104,68 +121,232 @@ function CTA() {
 
           {/* RIGHT SIDE */}
 
-          <div className="rounded-[30px] bg-white/80 backdrop-blur-xl border border-white shadow-2xl p-10">
+          <div
+  id="contact-form"
+  className="
+    rounded-2xl
+    bg-white/70
+    backdrop-blur-2xl
+    border
+    border-white/40
+    shadow-[0_15px_50px_rgba(37,99,235,0.12)]
+    p-10
+  "
+>
 
-            <h3 className="text-3xl font-bold text-[#0B1B34] mb-8">
-              Let's Connect
-            </h3>
+  <h3 className="text-3xl font-bold text-[#0B1B34]">
+    Let's Connect
+  </h3>
 
-            <form
-              onSubmit={handleSubmit}
-              className="space-y-6"
-            >
+  <p className="mt-2 mb-8 text-gray-500">
+    We'd love to hear about your project.
+  </p>
 
-              <input
-                type="text"
-                name="name"
-                placeholder="Full Name"
-                required
-                value={formData.name}
-                onChange={handleChange}
-                className="w-full rounded-xl bg-blue-50 border border-gray-200 p-4 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
-              />
+  <form
+    onSubmit={handleSubmit}
+    className="space-y-7"
+  >
 
-              <input
-                type="email"
-                name="email"
-                placeholder="Email Address"
-                required
-                value={formData.email}
-                onChange={handleChange}
-                className="w-full rounded-xl bg-blue-50 border border-gray-200 p-4 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
-              />
+    {/* Name */}
 
-              <input
-                type="tel"
-                name="phone"
-                placeholder="Contact Number"
-                required
-                value={formData.phone}
-                onChange={handleChange}
-                className="w-full rounded-xl bg-blue-50 border border-gray-200 p-4 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
-              />
+    <div className="relative">
 
-              <textarea
-                rows="4"
-                name="address"
-                placeholder="Address"
-                required
-                value={formData.address}
-                onChange={handleChange}
-                className="w-full rounded-xl bg-blue-50 border border-gray-200 p-4 outline-none resize-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
-              />
+      <FiUser
+        className="
+          absolute
+          left-4
+          top-1/2
+          -translate-y-1/2
+          text-blue-500
+          text-lg
+        "
+      />
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 text-white font-semibold text-lg shadow-lg hover:scale-[1.02] hover:shadow-xl transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
-              >
-                {loading ? "Submitting..." : "Submit"}
-              </button>
+      <input
+        type="text"
+        name="name"
+        placeholder="Full Name"
+        required
+        minLength={3}
+        value={formData.name}
+        onChange={handleChange}
+        className="
+          w-full
+          pl-12
+          pr-4
+          py-4
+          rounded-xl
+          bg-white
+          border
+          border-gray-200
+          shadow-sm
+          outline-none
+          transition
+          focus:border-blue-500
+          focus:ring-4
+          focus:ring-blue-100
+        "
+      />
 
-            </form>
+    </div>
 
-          </div>
+    {/* Email */}
+
+    <div className="relative">
+
+      <FiMail
+        className="
+          absolute
+          left-4
+          top-1/2
+          -translate-y-1/2
+          text-blue-500
+          text-lg
+        "
+      />
+
+      <input
+        type="email"
+        name="email"
+        placeholder="Email Address"
+        required
+        value={formData.email}
+        onChange={handleChange}
+        className="
+          w-full
+          pl-12
+          pr-4
+          py-4
+          rounded-xl
+          bg-white
+          border
+          border-gray-200
+          shadow-sm
+          outline-none
+          transition
+          focus:border-blue-500
+          focus:ring-4
+          focus:ring-blue-100
+        "
+      />
+
+    </div>
+
+    {/* Phone */}
+
+    <div className="relative">
+
+      <FiPhone
+        className="
+          absolute
+          left-4
+          top-1/2
+          -translate-y-1/2
+          text-blue-500
+          text-lg
+        "
+      />
+
+      <input
+        type="tel"
+        name="phone"
+        placeholder="Contact Number"
+        required
+        pattern="[0-9]{10}"
+        maxLength={10}
+        value={formData.phone}
+        onChange={handleChange}
+        className="
+          w-full
+          pl-12
+          pr-4
+          py-4
+          rounded-xl
+          bg-white
+          border
+          border-gray-200
+          shadow-sm
+          outline-none
+          transition
+          focus:border-blue-500
+          focus:ring-4
+          focus:ring-blue-100
+        "
+      />
+
+    </div>
+
+    {/* Address */}
+
+    <div className="relative">
+
+      <FiMapPin
+        className="
+          absolute
+          left-4
+          top-5
+          text-blue-500
+          text-lg
+        "
+      />
+
+      <textarea
+        rows="5"
+        name="address"
+        placeholder="Address"
+        required
+        value={formData.address}
+        onChange={handleChange}
+        className="
+          w-full
+          pl-12
+          pr-4
+          py-4
+          rounded-xl
+          bg-white
+          border
+          border-gray-200
+          shadow-sm
+          outline-none
+          resize-none
+          transition
+          focus:border-blue-500
+          focus:ring-4
+          focus:ring-blue-100
+        "
+      />
+
+    </div>
+
+    <button
+      type="submit"
+      disabled={loading}
+      className="
+        w-full
+        py-4
+        rounded-xl
+        bg-gradient-to-r
+        from-blue-600
+        via-indigo-600
+        to-cyan-500
+        text-white
+        font-semibold
+        text-lg
+        shadow-lg
+        hover:-translate-y-1
+        hover:shadow-blue-300/50
+        active:scale-95
+        transition-all
+        duration-300
+        disabled:opacity-60
+      "
+    >
+      {loading ? "Submitting..." : "Submit"}
+    </button>
+
+  </form>
+
+</div>
 
         </div>
 

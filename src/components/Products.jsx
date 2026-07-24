@@ -43,7 +43,9 @@ function Products() {
             {products.map((item) => (
               <SwiperSlide key={item.id}>
                 <div
-                  className={`relative overflow-hidden rounded-[28px] sm:rounded-[34px] h-[430px] sm:h-[470px] lg:h-[430px] p-5 sm:p-8 lg:p-12 text-white cursor-grab active:cursor-grabbing ${
+                  className={`relative overflow-hidden rounded-[28px] sm:rounded-[34px] min-h-[320px]
+sm:min-h-[520px]
+lg:h-[300px] p-5 sm:p-8 lg:p-12 text-white cursor-grab active:cursor-grabbing ${
                     item.name === "SPACZ"
                       ? "bg-gradient-to-br from-[#03152D] via-[#0A2D63] to-[#1F5EFF]"
                       : item.name === "STRIKE"
@@ -55,7 +57,7 @@ function Products() {
                   {/* Glow */}
 
                   <div
-                    className={`absolute -right-24 -top-24 w-80 h-80 rounded-full blur-3xl opacity-25 ${
+                    className={`absolute -right-24 -top-24 w-80 h-80 rounded-full blur-3xl opacity-25 pointer-events-none ${
                       item.name === "SPACZ"
                         ? "bg-blue-400"
                         : item.name === "STRIKE"
@@ -66,19 +68,21 @@ function Products() {
 
                   {/* Navigation */}
 
-                  <div className="absolute top-5 right-5 sm:top-8 sm:right-8 flex gap-2 sm:gap-3 z-20">
+                  <div className="absolute top-5 right-5 sm:top-8 sm:right-8 flex gap-2 sm:gap-3 z-30">
                     <button
                       onClick={() => swiperRef.current?.slidePrev()}
-                      className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/10 border border-white/20 backdrop-blur flex items-center justify-center hover:bg-white/20 transition"
+                      className="w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-white/10 border border-white/20 backdrop-blur flex items-center justify-center hover:bg-white/20 transition shrink-0"
                     >
-                      <FiChevronLeft size={20} />
+                      <FiChevronLeft size={18} className="sm:hidden" />
+                      <FiChevronLeft size={20} className="hidden sm:block" />
                     </button>
 
                     <button
                       onClick={() => swiperRef.current?.slideNext()}
-                      className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/10 border border-white/20 backdrop-blur flex items-center justify-center hover:bg-white/20 transition"
+                      className="w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-white/10 border border-white/20 backdrop-blur flex items-center justify-center hover:bg-white/20 transition shrink-0"
                     >
-                      <FiChevronRight size={20} />
+                      <FiChevronRight size={18} className="sm:hidden" />
+                      <FiChevronRight size={20} className="hidden sm:block" />
                     </button>
                   </div>
 
@@ -88,45 +92,66 @@ function Products() {
 
                     {/* Top */}
 
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-5 sm:mb-8 pr-24 sm:pr-0">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-4 sm:mb-8 pr-20 sm:pr-0">
                       <span className="w-fit px-4 py-2 rounded-full bg-white/15 border border-white/20 text-xs sm:text-sm font-semibold">
                         {item.name}
                       </span>
 
-                      <span className="uppercase tracking-[2px] sm:tracking-[3px] text-[11px] sm:text-sm text-white/70 break-words">
+                      <span className="uppercase tracking-[2px] sm:tracking-[3px] text-[10px] sm:text-sm text-white/70 break-words leading-snug">
                         • {item.category}
                       </span>
                     </div>
 
                     {/* Title */}
 
-                    <h3 className="text-2xl sm:text-4xl lg:text-6xl font-bold leading-tight mb-5 max-w-3xl">
+                    <h3
+                      className="
+                        text-2xl
+                        sm:text-4xl
+                        lg:text-6xl
+                        font-bold
+                        leading-tight
+                        mb-3
+                        sm:mb-4
+                        whitespace-nowrap
+                        overflow-hidden
+                        text-ellipsis
+                        max-w-full
+                      "
+                    >
                       {item.title}
                     </h3>
 
-                    <p className="text-base sm:text-lg text-white/80 mb-6">
+                    <p className="text-sm sm:text-base lg:text-lg text-white/80 mb-8">
                       {item.description}
                     </p>
 
-                    <div className="mt-auto pt-3 sm:pt-6">
-                      {item.tags ? (
-                        <div className="flex flex-wrap gap-3">
-                          {item.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="px-3 sm:px-5 py-1.5 sm:py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur text-xs sm:text-sm"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      ) : (
-                        <button className="w-fit border-b border-cyan-300 text-cyan-200 pb-1 hover:text-white transition">
-                          {item.buttonText}
-                        </button>
-                      )}
-                    </div>
+                    <div className="mt-auto lg:mt-10 flex justify-center pt-4 sm:pt-6">
+                      <div className="flex flex-col items-center gap-4 sm:gap-6 w-full max-w-2xl">
 
+                        {/* Feature Tags */}
+                        {item.tags && (
+                          <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+                            {item.tags.map((tag) => (
+                              <span
+                                key={tag}
+                                className="px-3 sm:px-5 py-1.5 sm:py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur text-xs sm:text-sm whitespace-nowrap"
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+
+                        {/* View Case Study Button */}
+                        {item.buttonText && (
+                          <button className="w-fit border-b border-cyan-300 text-cyan-200 pb-1 hover:text-white transition text-sm sm:text-base">
+                            {item.buttonText}
+                          </button>
+                        )}
+
+                      </div>
+                    </div>
                   </div>
                 </div>
               </SwiperSlide>

@@ -5,6 +5,7 @@ import {
 } from "react-icons/fi";
 
 import { Link } from "react-scroll";
+import scalaLogo from "../assets/scalaLogo.png";
 
 function Footer() {
   return (
@@ -22,7 +23,7 @@ function Footer() {
 
             <div className="flex items-center gap-3 mb-8">
               <img
-                src="/logo.png"
+                src={scalaLogo}
                 alt="Scala"
                 className="w-8 h-8 object-contain"
               />

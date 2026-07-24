@@ -15,11 +15,19 @@ function Navbar() {
   const [isNavigating, setIsNavigating] = useState(false);
   // Google Form URL
 const handleContactUs = () => {
-    document
-        .getElementById("cta")
-        ?.scrollIntoView({
-            behavior: "smooth",
-        });
+  const form = document.getElementById("contact-form");
+
+  if (form) {
+    const y =
+      form.getBoundingClientRect().top +
+      window.pageYOffset -
+      100; // navbar height
+
+    window.scrollTo({
+      top: y,
+      behavior: "smooth",
+    });
+  }
 };
 
   // controls mobile menu open/close
@@ -134,17 +142,25 @@ transition={{
 <div className="flex items-center">
 
   {/* Logo */}
-  <img
-    src={scalaLogo}
-    alt="Scala"
-    className={`object-contain transition-all duration-500 ${
-      scrolled ? "h-10" : "h-14"
-    }`}
-  />
+<img
+  src={scalaLogo}
+  alt="Scala"
+  loading="eager"
+  fetchPriority="high"
+  decoding="async"
+  className={`
+    object-contain
+    transition-all
+    duration-500
+    h-16
+    sm:h-20
+    lg:${scrolled ? "h-10" : "h-14"}
+  `}
+/>
 
 </div>
 
-{/* Mobile Center Title */}
+{/* Mobile Center Title
 <h1
   className="
     lg:hidden
@@ -164,7 +180,7 @@ transition={{
   "
 >
   SCALA
-</h1>
+</h1> */}
 
 {/* Desktop Menu */}
 <ul className="hidden lg:flex items-center gap-3 relative">
@@ -217,7 +233,7 @@ transition={{
     }, 600);
   }}
 >
-  
+
                 <button
                   className={`
                   relative
